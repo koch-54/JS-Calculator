@@ -1,0 +1,163 @@
+/* rootはあらかじめよく使うものを変数に代入しておくような感じ */
+:root {
+    --digit-color: #434343;
+    --operator-color: #e98800fe;
+    --background-color: #1c1c1c;
+    --function-color: #9c9b9b;    
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    font-family: Helvetica, sans-serif;
+}
+
+body{
+    background-color: var(--background-color);
+    color: #fff;
+    height: 100%;
+    width: 100%;    
+}
+
+.calculator{
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+    min-width: 500px;
+    font-size: 1.3rem;
+}
+
+.calculator .screen{
+    display: flex;
+    justify-content: end;
+    align-items: flex-end;
+    padding-bottom: 15px;
+    font-size: 5.5rem;
+    width: 290px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.calculator .keyboard{
+    height: 350px;
+    width: 290px;
+}
+
+/*First row*/
+.keyboard .row:first-child .sub-col:not(:last-child) {
+    background-color: var(--function-color);
+    color: var(--background-color);
+}
+
+.keyboard .row:first-child .sub-col:last-child {
+    background-color: var(--operator-color);
+    color: #fff;    
+}
+
+/* Second, third, forth, fifth row */
+.keyboard .row:nth-child(2) .sub-col:not(:last-child),
+.keyboard .row:nth-child(3) .sub-col:not(:last-child),
+.keyboard .row:nth-child(4) .sub-col:not(:last-child),
+.keyboard .row:nth-child(5) .sub-col:not(:last-child) {
+    background-color: var(--digit-color);
+    color: var(--background-color);
+}
+
+.keyboard .row:nth-child(2) .sub-col:last-child,
+.keyboard .row:nth-child(3) .sub-col:last-child,
+.keyboard .row:nth-child(4) .sub-col:last-child,
+.keyboard .row:nth-child(5) .sub-col:last-child {
+    background-color: var(--operator-color);
+    color: #fff;    
+}
+
+/* When select every operator button */
+.selected_operator[data-value="clear"],
+.selected_operator[data-value="%"],
+.selected_operator[data-value="+/-"] {
+    animation: background-ani-fn .5s ease-out;
+}
+
+.selected_operator[data-value="="] {
+    animation: background-ani-equal .5s ease-out;
+}
+
+.selected_operator[data-button-type="digit"] {
+    animation: background-ani-equal .3s ease-out;
+}
+
+.selected_operator[data-button-type="operator"]:not(.selected_operator[data-value="clear"]):not(.selcted_operation[data-value="%"]):not(.selcted_operation[data-value="=/-"]):not(.selcted_operation[data-value="="]) {
+    background-color: #d4d4d2;
+    color: var(--operator-color);
+    transition: background-color, color .5s ease-out;
+}
+
+@keyframes background-ani-fn{
+    0% {background-color: var(--function-color);}
+    50% {background-color: #fff;}
+    100% {background-color: var(--function-color);}
+}
+
+@keyframes background-ani-equal{
+    0% {background-color: var(--operator-color);}
+    50% {background-color: #fff;}
+    100% {background-color: var(--operator-color);}
+}
+
+@keyframes background-ani-digit{
+    0% {background-color: var(--digit-color);}
+    50% {background-color: #fff;}
+    100% {background-color: var(--digit-color);}
+}
+
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.col {
+    display: flex;
+    position: relative;
+    width: 100%;
+    -webkit-box-flex: 0;
+    flex: 0 0 100%;
+    max-width: 100%;
+    height: 100vh;
+}
+
+.flex-center{
+    justify-content: center;
+    align-items: center;
+}
+
+.sub-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 21%;
+    height: 86%;
+    -webkit-box-flex: 0;    
+    max-width: 21%;
+    border-radius: 50%;
+    transition: background-color .8s ease-out;
+}
+
+.row:last-child > .sub-col:first-child {
+    display: flex;
+    justify-content: start;
+    padding-left: 25px;
+    width: 47%;    
+    max-width: 47%;
+    border-radius: 100px;
+    transition: background-color .8s ease-out;   
+}
+
+.keyboard .row {
+    justify-content: space-between;
+    height: 20%;
+}
